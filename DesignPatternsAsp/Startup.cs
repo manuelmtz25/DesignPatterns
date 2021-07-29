@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DesignPatternsAsp.Configuration;
 
 namespace DesignPatternsAsp
 {
@@ -24,6 +25,7 @@ namespace DesignPatternsAsp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.Configure<MyConfig>(Configuration.GetSection("MyConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

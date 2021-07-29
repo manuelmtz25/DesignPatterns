@@ -6,25 +6,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DesignPatternsAsp.Configuration;
+using Microsoft.Extensions.Options;
+using Tools;
 
 namespace DesignPatternsAsp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IOptions<MyConfig> _config;
+        public HomeController(IOptions<MyConfig> config)
         {
-            _logger = logger;
+            _config = config;
         }
 
         public IActionResult Index()
         {
+            //Sin inyección de dependencias
+            //Log.GetInstance("log.txt").Save("Entró a Index");
+
+            //Con inyección de dependencias
+            Log.GetInstance(_config.Value.PathLog).Save("Entró a Index");
+
             return View();
         }
 
         public IActionResult Privacy()
         {
+            Log.GetInstance(_config.Value.PathLog).Save("Entró a Privacy");
             return View();
         }
 

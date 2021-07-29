@@ -5,19 +5,23 @@ namespace Tools
 {
     public sealed class Log
     {
-        private static readonly Log _instance = new Log();
-        private string _path = "log.txt";
+        private static Log _instance = null;
+        private string _path;
 
-        public static Log Instance
+        public static Log GetInstance(string path)
         {
-            get
+            if (_instance==null)
             {
-                return _instance;
+                _instance=new Log(path);
             }
+
+            return _instance;
         }
 
-        //Haciedo el constructor privado, se evitará crear más objetos de esta clase
-        private Log() { }
+        private Log(string path)
+        {
+            _path = path;
+        }
 
         public void Save(string message)
         {
