@@ -6,7 +6,13 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //Utilizando singleton
+            //var singleton = Singleton.Singleton.Instance;
+
+            //Utilizando singleton para un log
+            var log = Singleton.Log.Instance;
+            log.Save("a");
+            log.Save("b");
         }
     }
 }
