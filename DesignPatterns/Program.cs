@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
-using DesignPatterns.DependencyInjection;
 using DesignPatterns.Factory;
 using DesignPatterns.Models;
+using DesignPatterns.Repository;
+
 
 namespace DesignPatterns
 {
@@ -40,12 +41,28 @@ namespace DesignPatterns
 
             #region Repository
 
-            using (var context=new beerDBContext())
+            //Sin usar el patrón repositorio
+            //using (var context=new beerDBContext())
+            //{
+            //    var list = context.Beers.ToList();
+            //    foreach (var beer in list)
+            //    {
+            //        Console.WriteLine(beer.Name);
+            //    }
+            //}
+
+            using (var context = new beerDBContext())
             {
-                var list = context.Beers.ToList();
-                foreach (var beer in list)
+                var beerRepository=new BeerRepository(context);
+                var beer=new Beer();
+                beer.Name = "XX Lager";
+                beer.Description = "Lager";
+                beerRepository.Add(beer);
+                beerRepository.Save();
+
+                foreach (var itemBeer in beerRepository.Get())
                 {
-                    Console.WriteLine(beer.Name);
+                    Console.WriteLine(itemBeer.Name);
                 }
             }
 
