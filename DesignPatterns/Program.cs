@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using DesignPatterns.DependencyInjection;
 using DesignPatterns.Factory;
+using DesignPatterns.Models;
 
 namespace DesignPatterns
 {
@@ -30,9 +32,22 @@ namespace DesignPatterns
 
             #region Dependency Injection
 
-            var beer = new Beer("Pikantus", "Erdinger");
-            var drinkWithBeer= new DrinkWithBeer(10, 1, beer);
-            drinkWithBeer.Build();
+            //var beer = new Beer("Pikantus", "Erdinger");
+            //var drinkWithBeer= new DrinkWithBeer(10, 1, beer);
+            //drinkWithBeer.Build();
+
+            #endregion
+
+            #region Repository
+
+            using (var context=new beerDBContext())
+            {
+                var list = context.Beers.ToList();
+                foreach (var beer in list)
+                {
+                    Console.WriteLine(beer.Name);
+                }
+            }
 
             #endregion
 
