@@ -51,20 +51,50 @@ namespace DesignPatterns
             //    }
             //}
 
-            using (var context = new beerDBContext())
-            {
-                var beerRepository=new BeerRepository(context);
-                var beer=new Beer();
-                beer.Name = "XX Lager";
-                beer.Description = "Lager";
-                beerRepository.Add(beer);
-                beerRepository.Save();
+            //1 Repository Pattern
+            //using (var context = new beerDBContext())
+            //{
+            //    var beerRepository=new BeerRepository(context);
+            //    var beer=new Beer();
+            //    beer.Name = "XX Lager";
+            //    beer.Description = "Lager";
+            //    beerRepository.Add(beer);
+            //    beerRepository.Save();
 
-                foreach (var itemBeer in beerRepository.Get())
-                {
-                    Console.WriteLine(itemBeer.Name);
-                }
-            }
+            //    foreach (var itemBeer in beerRepository.Get())
+            //    {
+            //        Console.WriteLine(itemBeer.Name);
+            //    }
+            //}
+
+            //2 Repository Pattern using Generics
+            //using (var context = new beerDBContext())
+            //{
+            //    var beerRepository=new Repository<Beer>(context);
+            //    var beer = new Beer() {Name = "Fuller", Description = "Strong Ale"};
+            //    beerRepository.Add(beer);
+            //    beerRepository.Save();
+
+            //    foreach (var item in beerRepository.Get())
+            //    {
+            //        Console.WriteLine($"{item.Name} {item.Description}");
+            //    }
+            //}
+
+            //3
+            //using (var context = new beerDBContext())
+            //{
+            //    var brandRepository=new Repository<Brand>(context);
+
+            //    var brand=new Brand(){Name = "Fuller"};
+            //    brandRepository.Add(brand);
+            //    brandRepository.Save();
+            //    foreach (var item in brandRepository.Get())
+            //    {
+            //        Console.WriteLine(item.Name);
+            //    }
+                
+            //}
 
             #endregion
 
