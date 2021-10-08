@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DesignPatternsAsp.Configuration;
+using Tools.Earn;
 
 namespace DesignPatternsAsp
 {
@@ -26,6 +27,14 @@ namespace DesignPatternsAsp
         {
             services.AddControllersWithViews();
             services.Configure<MyConfig>(Configuration.GetSection("MyConfig"));
+            services.AddTransient((factory) =>
+            {
+                return new LocalEarnFactory(Configuration.GetSection("MyConfig").GetValue<decimal>("LocalPercentage"));
+            });
+            services.AddTransient((factory) =>
+            {
+                return new ForeignEearnFactory(Configuration.GetSection("MyConfig").GetValue<decimal>("ForeignPercentage"), Configuration.GetSection("MyConfig").GetValue<decimal>("Extra"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

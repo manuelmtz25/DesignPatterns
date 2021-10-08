@@ -10,15 +10,21 @@ namespace DesignPatternsAsp.Controllers
 {
     public class ProductDetailController : Controller
     {
+        private EarnFactory _localEarnFactory;
+        private ForeignEearnFactory _foreignEearnFactory;
+
+        public ProductDetailController(LocalEarnFactory localEarnFactory, ForeignEearnFactory foreignEearnFactory)
+        {
+            _localEarnFactory = localEarnFactory;
+            _foreignEearnFactory= foreignEearnFactory;
+
+        }
         public IActionResult Index(decimal total)
         {
-            //factories
-            LocalEarnFactory localEarnFactory=new LocalEarnFactory(0.20m);
-            ForeignEearnFactory foreignEearnFactory=new ForeignEearnFactory(0.30m, 20);
-
+            
             //products
-            var localEarn = localEarnFactory.GetEarn();
-            var foreignEarn = foreignEearnFactory.GetEarn();
+            var localEarn = _localEarnFactory.GetEarn();
+            var foreignEarn = _foreignEearnFactory.GetEarn();
 
             //total
             ViewBag.totalLocal = total + localEarn.Eearn(total);
