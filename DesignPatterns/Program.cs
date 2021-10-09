@@ -3,6 +3,7 @@ using System.Linq;
 using DesignPatterns.Factory;
 using DesignPatterns.Models;
 using DesignPatterns.Repository;
+using DesignPatterns.UnitOfWork;
 
 
 namespace DesignPatterns
@@ -93,8 +94,36 @@ namespace DesignPatterns
             //    {
             //        Console.WriteLine(item.Name);
             //    }
-                
+
             //}
+
+            #endregion
+
+            #region UnitOfWork
+
+            using (var context=new beerDBContext())
+            {
+                var unitOfWork = new UnitOfWork.UnitOfWork(context);
+                
+                var beers = unitOfWork.Beers;
+                var beer = new Beer()
+                {
+                    Name = "Fuller2",
+                    Description = "Porter"
+                };
+
+                beers.Add(beer);
+
+                var brands = unitOfWork.Brands;
+                var brand=new Brand()
+                {
+                    Name = "Fuller2"
+                };
+
+                brands.Add(brand);
+
+                unitOfWork.Save();
+            }
 
             #endregion
 
